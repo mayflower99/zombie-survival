@@ -1,3 +1,7 @@
+function setUp () {
+    // color.setPalette(color.GrayScale)
+    tiles.setCurrentTilemap(tilemap`startingMap`)
+}
 class Bob{
     sprite:Sprite = sprites.create(assets.image`bobFacingBackwards`, SpriteKind.Player)
     constructor(){
@@ -29,7 +33,6 @@ class Bob{
     }
 }
 let bob = new Bob
-
 class Map{
     tilemapCenter:Array<number>
     tileMapLocation:Array<number>
@@ -43,11 +46,17 @@ class Map{
         //only even numbers(30)
     }
     createlargemap(size:number){
-        for(let a = 0; a <size-1; a++){
+        for (let a = 0; a < size - 1; a++) {
             this.largeMap.push([])
-            for(let b = 0; b < size-1; b++){
+            for (let b = 0; b < size - 1; b++) {
+                this.largeMap[a].push([])
+            }
+
+        }
+        for(let c = 0; c <size-1; c++){
+            for(let d = 0; d < size-1; d++){
                 let newChunk = this.generateNewChunk()
-                this.largeMap[a].push([null])
+                this.largeMap[c][d] = newChunk
             }
 
         }
@@ -56,14 +65,14 @@ class Map{
         this.tileMapLocation = [Math.floor(size / 2) - 1, Math.floor(size / 2) - 1]
     }
     generateNewChunk(){
-        let newChunk:Array<Array<number>> = []
-        for (let a = 0; a < 15; a++) {
-            newChunk.push([])
-            for (let b = 0; b < 15; b++) {
-                this.randomTiles(newChunk,a,b,0)
+        let newChunk2:Array<Array<number>> = []
+        for (let e = 0; e < 15; e++) {
+            newChunk2.push([])
+            for (let f = 0; f < 15; f++) {
+                this.randomTiles(newChunk2,e,f,0)
             }
         }
-        return newChunk
+        return newChunk2
     }
     randomTiles(array: Array<Array<number>>,a:number,b:number,biome:number){
         if(a == 0 ||b== 0 ||a==15 || b== 15){
@@ -77,20 +86,20 @@ class Map{
         }
     }
     renderTilemap(){
-        for(let a = 0; a < 15; a++){
-            for(let b = 0; b < 15; b++){
-                if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][a][b] == 1){
-                    this.awayTileMap.setTile(a,b,9)
-                    tiles.setWallAt(tiles.getTileLocation(a, b), true)
-                } else if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][a][b] == 2){
-                    this.awayTileMap.setTile(a, b, 9)
-                    tiles.setWallAt(tiles.getTileLocation(a, b), true)
-                } else if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][a][b] == 3){
-                    this.awayTileMap.setTile(a, b, 9)
-                    tiles.setWallAt(tiles.getTileLocation(a, b), true)
-                } else if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][a][b] == 0){
-                    this.awayTileMap.setTile(a, b, 9)
-                    tiles.setWallAt(tiles.getTileLocation(a, b), true)
+        for(let g = 0; g < 15; g++){
+            for(let h = 0; h < 15; h++){
+                if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][g][h] == 1){
+                    tiles.setTileAt(tiles.getTileLocation(0, 0), assets.tile`forestTile`)
+                    tiles.setWallAt(tiles.getTileLocation(g, h), true)
+                } else if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][g][h] == 2){
+                    this.awayTileMap.setTile(g, h, 9)
+                    tiles.setWallAt(tiles.getTileLocation(g, h), true)
+                } else if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][g][h] == 3){
+                    this.awayTileMap.setTile(g, h, 9)
+                    tiles.setWallAt(tiles.getTileLocation(g, h), true)
+                } else if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][g][h] == 0){
+                    this.awayTileMap.setTile(g, h, 9)
+                    tiles.setWallAt(tiles.getTileLocation(g, h), true)
                 }
             }
         }
@@ -122,11 +131,11 @@ class Map{
 
     }
     loadMap(prePost:Array<number>){
+        bob.sprite.setPosition(10,10)
         console.log(this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]])
         if(this.tileMapLocation == this.tilemapCenter){
             tiles.setCurrentTilemap(this.homeTileMap)
         } else if (this.tileMapLocation[0] >= this.mapDimentions-1 || this.tileMapLocation[1] >= this.mapDimentions-1 || this.tileMapLocation[0] <= 0 || this.tileMapLocation[1] <= 0){
-            
             game.showLongText("You shouldn't venture this far", DialogLayout.Bottom)
         }else{  
             this.renderTilemap()
@@ -135,10 +144,6 @@ class Map{
 }
 let map = new Map
 let largeMap = map.largeMap
-function setUp(){
-    /* color.setPalette(color.GrayScale) */
-    tiles.setCurrentTilemap(assets.tilemap`startingMap`)
-}
 namespace controllers{
     controller.up.onEvent(ControllerButtonEvent.Pressed, function() {
         bob.up()
