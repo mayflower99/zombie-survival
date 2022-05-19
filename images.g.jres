@@ -1,0 +1,27 @@
+{
+    "image1": {
+        "data": "hwQMABAAAAAA8P//D+BEAAD//+7+T00A8P//3u3//wDw/u6d3d7JiO/u3v3dncmI7+7e3b2dyQjv7t7dvZ3JCO/u3v3dncmI8P7vnd3eyYjw///e7f//AAD//+7+T00AAPD//w/gRAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "bobFacingBackwards"
+    },
+    "image2": {
+        "data": "hwQMABAAAAAA8P//D+DuAAD/7v7/7u4A8O/u7v///wDw7u7u/8/M/+/e3e7+z8z/797d7v7PzA/v3t3u/s/MD+/d3e7+z8z/8N3u7v/PzP/w7+7u////AAD/7v7/7u4AAPD//w/g7gA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "bobFacingForwards"
+    },
+    "image3": {
+        "data": "hwQMABAAAAAA8P//AAAAAAD/////AAAA8P//7/5P/gDw/v/v/t7tD+/u793u3u3/7+7und3k/v/v7t793cS8/+/u3t29xLwP7+7u3b3NvA/w7u7u////AADv7v8PAAAAAPD//wAAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "bobFacingRight"
+    },
+    "image9": {
+        "data": "hwQMABAAAAAA8P//AAAAAADv7v8PAAAA8O7u7v///wDv7u7dvc28D+/u3t29xLwP7+7e/d3EvP/v7u6d3eT+/+/u793u3u3/8P7/7/7e7Q/w///v/k/+AAD/////AAAAAPD//wAAAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "bobFacingLeft"
+    },
+    "*": {
+        "mimeType": "image/x-mkcd-f4",
+        "dataEncoding": "base64",
+        "namespace": "myImages"
+    }
+}
