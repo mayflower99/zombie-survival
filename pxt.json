@@ -5,7 +5,8 @@
         "device": "*",
         "Color Fading": "github:jwunderl/pxt-color#v0.2.2",
         "arcade-sprite-data": "github:microsoft/arcade-sprite-data#v0.1.0",
-        "Timers": "github:microsoft/arcade-timers#v1.1.0"
+        "Timers": "github:microsoft/arcade-timers#v1.1.0",
+        "arcade-minimap": "github:microsoft/arcade-minimap#v0.6.1"
     },
     "files": [
         "main.blocks",
@@ -27,5 +28,5 @@
     "supportedTargets": [
         "arcade"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "blocksprj"
 }

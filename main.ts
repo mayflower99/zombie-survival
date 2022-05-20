@@ -1,8 +1,14 @@
 function setUp () {
+    mySprite = sprites.create(assets.image`bobFacingLeft`, SpriteKind.Player)
     // color.setPalette(color.GrayScale)
     tiles.setCurrentTilemap(tilemap`startingMap`)
+    myMinimap = minimap.getImage(minimap.minimap(MinimapScale.Half, 2, 9))
+    minimap.includeSprite(myMinimap, mySprite)
 }
+let myMinimap: Image = null
+let mySprite: Sprite = null
 class Bob{
+
     sprite:Sprite = sprites.create(assets.image`bobFacingBackwards`, SpriteKind.Player)
     constructor(){
         tiles.placeOnTile(this.sprite, tiles.getTileLocation(14, 14))
@@ -66,16 +72,18 @@ class Map{
     }
     generateNewChunk(){
         let newChunk2:Array<Array<number>> = []
-        for (let e = 0; e < 15; e++) {
+        for (let e = 0; e <= 15; e++) {
             newChunk2.push([])
-            for (let f = 0; f < 15; f++) {
+            for (let f = 0; f <= 15; f++) {
                 this.randomTiles(newChunk2,e,f,0)
             }
         }
         return newChunk2
     }
     randomTiles(array: Array<Array<number>>,a:number,b:number,biome:number){
-        if(a == 0 ||b== 0 ||a==15 || b== 15){
+        if (((b == 0) && ((a == 7) || (a == 8))) || ((b == 15) && ((a == 7) || (a == 8)))){
+            array[a].push(4)
+        }else if(a == 0 ||b== 0 ||a==15 || b== 15){
             array[a].push(1)
         } else if (Math.percentChance(5)){
             array[a].push(2)
@@ -86,24 +94,25 @@ class Map{
         }
     }
     renderTilemap(){
-        for(let g = 0; g < 15; g++){
-            for(let h = 0; h < 15; h++){
+        for(let g = 0; g <= 15; g++){
+            for(let h = 0; h <= 15; h++){
                 if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][g][h] == 1){
-                    tiles.setTileAt(tiles.getTileLocation(0, 0), assets.tile`forestTile`)
+                    tiles.setTileAt(tiles.getTileLocation(g, h), assets.tile`forestTile`)
                     tiles.setWallAt(tiles.getTileLocation(g, h), true)
                 } else if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][g][h] == 2){
-                    this.awayTileMap.setTile(g, h, 9)
-                    tiles.setWallAt(tiles.getTileLocation(g, h), true)
+                    tiles.setTileAt(tiles.getTileLocation(g, h), assets.tile`smallStonesTile`)
                 } else if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][g][h] == 3){
-                    this.awayTileMap.setTile(g, h, 9)
-                    tiles.setWallAt(tiles.getTileLocation(g, h), true)
+                    tiles.setTileAt(tiles.getTileLocation(g, h), assets.tile`bigRockTile`)
                 } else if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][g][h] == 0){
-                    this.awayTileMap.setTile(g, h, 9)
-                    tiles.setWallAt(tiles.getTileLocation(g, h), true)
+                    tiles.setTileAt(tiles.getTileLocation(g, h), assets.tile`grassTile`)
+                } else if (this.largeMap[this.tileMapLocation[0]][this.tileMapLocation[1]][g][h] == 4){
+                    tiles.setTileAt(tiles.getTileLocation(g, h), assets.tile`gateTile`)
                 }
             }
         }
+
         tiles.setCurrentTilemap(this.awayTileMap)
+        tiles.placeOnRandomTile(bob.sprite, assets.tile`grassTile`)
     }
     move(){
 
@@ -190,4 +199,3 @@ namespace tileOverlaps{
         })
     })
 }
-
